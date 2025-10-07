@@ -5,3 +5,4 @@ log.*
 *.png
 **/download_results.sh
 *.zip
+__pycache__
