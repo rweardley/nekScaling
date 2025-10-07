@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scaling import StrongScalingCase
+from scaling import WeakScalingCases
 
 savedir = "scaling_plots/run2"
 
@@ -254,4 +255,23 @@ plt.ylabel("Parallel Efficiency")
 plt.legend(frameon=False)
 plt.text(0.1, 0.1, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/efficiency_qps_gpu.png", bbox_inches="tight")
+plt.close()
+
+# weak scaling
+
+strong_scaling_cases = [scaling_N1, scaling_N2, scaling_N3, scaling_N4, scaling_N5, scaling_N6, scaling_N7, scaling_N8, scaling_N9]
+weak_scaling_cases = WeakScalingCases(strong_scaling_cases)
+
+qps_per_rank_range = [0.81e6, 0.88e6]
+ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
+plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
+
+qps_per_rank_range = [0.0, 0.2e6]
+ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
+plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
+
+plt.xlabel("Ranks")
+plt.ylabel("Scaled Speedup")
+plt.legend(frameon=False)
+plt.savefig(f"{savedir}/weak_scaling.png", bbox_inches="tight")
 plt.close()
