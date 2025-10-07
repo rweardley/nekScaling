@@ -7,7 +7,7 @@
 #SBATCH --time=00:30:00
 #SBATCH --mail-type=NONE
 #SBATCH -p ukaea-mi300x
-#SBATCH --array=1-5:1
+#SBATCH --array=1-9:1
 
 jobdir="N_${SLURM_ARRAY_TASK_ID}"
 cp -r ../../base $jobdir
