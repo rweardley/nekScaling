@@ -4,7 +4,7 @@
 #SBATCH -A UKAEA-AP002-GPU
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:8
-#SBATCH --time=00:30:00
+#SBATCH --time=00:45:00
 #SBATCH --mail-type=NONE
 #SBATCH -p ukaea-mi300x
 #SBATCH --array=1-9:1
