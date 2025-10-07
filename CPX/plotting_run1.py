@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-savedir = "scaling_plots"
+savedir = "scaling_plots/run1"
 
 timestep_range = slice(100, 2000)
 qps_per_rank_scale = 1
@@ -60,21 +60,21 @@ class Scaling_Case:
 
 # didn't run for more than 16 ranks
 ranks_N1 = [8, 12, 16]
-files_N1 = [str(rank)+"_ranks/N_1.tsv" for rank in ranks_N1]
+files_N1 = [str(rank)+"_ranks/run1/N_1.tsv" for rank in ranks_N1]
 scaling_N1 = Scaling_Case(ranks_N1, 8, files_N1, lelg, 1)
 print(f"\nN=1")
 scaling_N1.scaling_calculations()
 
 # didn't run for more than 16 ranks
 ranks_N2 = [8, 12, 16]
-files_N2 = [str(rank)+"_ranks/N_2.tsv" for rank in ranks_N2]
+files_N2 = [str(rank)+"_ranks/run1/N_2.tsv" for rank in ranks_N2]
 scaling_N2 = Scaling_Case(ranks_N2, 8, files_N2, lelg, 2)
 print(f"\nN=2")
 scaling_N2.scaling_calculations()
 
 # didn't run for more than 48 ranks
 ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
-files_N3 = [str(rank)+"_ranks/N_3.tsv" for rank in ranks_N3]
+files_N3 = [str(rank)+"_ranks/run1/N_3.tsv" for rank in ranks_N3]
 scaling_N3 = Scaling_Case(ranks_N3, 8, files_N3, lelg, 3)
 print(f"\nN=3")
 scaling_N3.scaling_calculations()
@@ -82,7 +82,7 @@ scaling_N3.scaling_calculations()
 # up to 12 ranks failed due to 32 bit integer error
 # didn't run for more than 48 ranks
 ranks_N4 = [16, 24, 32, 40, 48]
-files_N4 = [str(rank)+"_ranks/N_4.tsv" for rank in ranks_N4]
+files_N4 = [str(rank)+"_ranks/run1/N_4.tsv" for rank in ranks_N4]
 scaling_N4 = Scaling_Case(ranks_N4, 8, files_N4, lelg, 4)
 print(f"\nN=4")
 scaling_N4.scaling_calculations()
@@ -91,7 +91,7 @@ N4_int32_vals = [3.5e9, 2.3e9]
 
 # up to 16 ranks failed due to 32 bit integer error
 ranks_N5 = [24, 32, 40, 48, 56, 64, 128]
-files_N5 = [str(rank)+"_ranks/N_5.tsv" for rank in ranks_N5]
+files_N5 = [str(rank)+"_ranks/run1/N_5.tsv" for rank in ranks_N5]
 scaling_N5 = Scaling_Case(ranks_N5, 8, files_N5, lelg, 5)
 print(f"\nN=5")
 scaling_N5.scaling_calculations()
@@ -101,7 +101,7 @@ N5_int32_vals = [5.6e9, 3.7e9, 2.8e9]
 # 24 ranks failed due to 32 bit integer error
 # didn't run <24 ranks
 ranks_N6 = [32, 40, 48, 56, 64, 128]
-files_N6 = [str(rank)+"_ranks/N_6.tsv" for rank in ranks_N6]
+files_N6 = [str(rank)+"_ranks/run1/N_6.tsv" for rank in ranks_N6]
 scaling_N6 = Scaling_Case(ranks_N6, 8, files_N6, lelg, 6)
 print(f"\nN=6")
 scaling_N6.scaling_calculations()
@@ -111,7 +111,7 @@ N6_int32_vals = [2.8e9]
 # up to 40 ranks failed due to 32 bit integer error
 # didn't run <24 ranks
 ranks_N7 = [48, 56, 64, 128]
-files_N7 = [str(rank)+"_ranks/N_7.tsv" for rank in ranks_N7]
+files_N7 = [str(rank)+"_ranks/run1/N_7.tsv" for rank in ranks_N7]
 scaling_N7 = Scaling_Case(ranks_N7, 8, files_N7, lelg, 7)
 print(f"\nN=7")
 scaling_N7.scaling_calculations()
@@ -121,7 +121,7 @@ N7_int32_vals = [4.0e9, 3.0e9, 2.4e9]
 # up to 56 ranks failed due to 32 bit integer error
 # didn't run <24 ranks
 ranks_N8 = [64, 128]
-files_N8 = [str(rank)+"_ranks/N_8.tsv" for rank in ranks_N8]
+files_N8 = [str(rank)+"_ranks/run1/N_8.tsv" for rank in ranks_N8]
 scaling_N8 = Scaling_Case(ranks_N8, 8, files_N8, lelg, 8)
 print(f"\nN=8")
 scaling_N8.scaling_calculations()
@@ -131,7 +131,7 @@ N8_int32_vals = [5.6e9, 4.2e9, 3.4e9, 2.8e9, 2.4e9]
 # up to 64 ranks failed due to 32 bit integer error
 # didn't run <24 ranks
 ranks_N9 = [128]
-files_N9 = [str(rank)+"_ranks/N_9.tsv" for rank in ranks_N9]
+files_N9 = [str(rank)+"_ranks/run1/N_9.tsv" for rank in ranks_N9]
 scaling_N9 = Scaling_Case(ranks_N9, 8, files_N9, lelg, 9)
 print(f"\nN=9")
 scaling_N9.scaling_calculations()
