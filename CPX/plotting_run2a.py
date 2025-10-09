@@ -3,21 +3,21 @@ import numpy as np
 from scaling import StrongScalingCase
 from scaling import WeakScalingCases
 
-savedir = "scaling_plots/run2"
+savedir = "scaling_plots/run2a"
 
 timestep_range = slice(100, 2000)
 lelg = 54000  # number of elements in .re2 mesh
 
 # didn't run for more than 16 ranks
 ranks_N1 = [8, 12, 16]
-files_N1 = [str(rank)+"_ranks/N_1.tsv" for rank in ranks_N1]
+files_N1 = [str(rank)+"_ranks/run2a/N_1.tsv" for rank in ranks_N1]
 scaling_N1 = StrongScalingCase(ranks_N1, 8, files_N1, lelg, 1, timestep_range)
 print(f"\nN=1")
 scaling_N1.scaling_calculations()
 
 # didn't run for more than 16 ranks
 ranks_N2 = [8, 12, 16]
-files_N2 = [str(rank)+"_ranks/N_2.tsv" for rank in ranks_N2]
+files_N2 = [str(rank)+"_ranks/run2a/N_2.tsv" for rank in ranks_N2]
 scaling_N2 = StrongScalingCase(ranks_N2, 8, files_N2, lelg, 2, timestep_range)
 print(f"\nN=2")
 scaling_N2.scaling_calculations()
@@ -25,7 +25,7 @@ scaling_N2.scaling_calculations()
 # didn't run for more than 48 ranks
 #ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
 ranks_N3 = [8, 12, 16, 40]
-files_N3 = [str(rank)+"_ranks/N_3.tsv" for rank in ranks_N3]
+files_N3 = [str(rank)+"_ranks/run2a/N_3.tsv" for rank in ranks_N3]
 scaling_N3 = StrongScalingCase(ranks_N3, 8, files_N3, lelg, 3, timestep_range)
 print(f"\nN=3")
 scaling_N3.scaling_calculations()
@@ -33,7 +33,7 @@ scaling_N3.scaling_calculations()
 # didn't run for more than 48 ranks
 #ranks_N4 = [16, 24, 32, 40, 48]
 ranks_N4 = [8, 12, 16, 32, 40]
-files_N4 = [str(rank)+"_ranks/N_4.tsv" for rank in ranks_N4]
+files_N4 = [str(rank)+"_ranks/run2a/N_4.tsv" for rank in ranks_N4]
 scaling_N4 = StrongScalingCase(ranks_N4, 8, files_N4, lelg, 4, timestep_range)
 print(f"\nN=4")
 scaling_N4.scaling_calculations()
@@ -42,7 +42,7 @@ scaling_N4.scaling_calculations()
 
 #ranks_N5 = [24, 32, 40, 48, 56, 64, 128]
 ranks_N5 = [8, 12, 32, 40]
-files_N5 = [str(rank)+"_ranks/N_5.tsv" for rank in ranks_N5]
+files_N5 = [str(rank)+"_ranks/run2a/N_5.tsv" for rank in ranks_N5]
 scaling_N5 = StrongScalingCase(ranks_N5, 8, files_N5, lelg, 5, timestep_range)
 print(f"\nN=5")
 scaling_N5.scaling_calculations()
@@ -52,7 +52,7 @@ scaling_N5.scaling_calculations()
 # didn't run <24 ranks
 # ranks_N6 = [32, 40, 48, 56, 64, 128]
 ranks_N6 = [32]
-files_N6 = [str(rank)+"_ranks/N_6.tsv" for rank in ranks_N6]
+files_N6 = [str(rank)+"_ranks/run2a/N_6.tsv" for rank in ranks_N6]
 scaling_N6 = StrongScalingCase(ranks_N6, 8, files_N6, lelg, 6, timestep_range)
 print(f"\nN=6")
 scaling_N6.scaling_calculations()
@@ -62,7 +62,7 @@ scaling_N6.scaling_calculations()
 # didn't run <24 ranks
 #ranks_N7 = [48, 56, 64, 128]
 ranks_N7 = [32]
-files_N7 = [str(rank)+"_ranks/N_7.tsv" for rank in ranks_N7]
+files_N7 = [str(rank)+"_ranks/run2a/N_7.tsv" for rank in ranks_N7]
 scaling_N7 = StrongScalingCase(ranks_N7, 8, files_N7, lelg, 7, timestep_range)
 print(f"\nN=7")
 scaling_N7.scaling_calculations()
@@ -72,7 +72,7 @@ scaling_N7.scaling_calculations()
 # didn't run <24 ranks
 # ranks_N8 = [64, 128]
 ranks_N8 = [32]
-files_N8 = [str(rank)+"_ranks/N_8.tsv" for rank in ranks_N8]
+files_N8 = [str(rank)+"_ranks/run2a/N_8.tsv" for rank in ranks_N8]
 scaling_N8 = StrongScalingCase(ranks_N8, 8, files_N8, lelg, 8, timestep_range)
 print(f"\nN=8")
 scaling_N8.scaling_calculations()
@@ -82,7 +82,7 @@ scaling_N8.scaling_calculations()
 # didn't run <24 ranks
 # ranks_N9 = [128]
 ranks_N9 = [32]
-files_N9 = [str(rank)+"_ranks/N_9.tsv" for rank in ranks_N9]
+files_N9 = [str(rank)+"_ranks/run2a/N_9.tsv" for rank in ranks_N9]
 scaling_N9 = StrongScalingCase(ranks_N9, 8, files_N9, lelg, 9, timestep_range)
 print(f"\nN=9")
 scaling_N9.scaling_calculations()
@@ -104,7 +104,6 @@ plt.plot(ranks_N9, scaling_N9.time_per_timestep, "x-", label=r"$N=9$")
 plt.xlabel("Ranks")
 plt.ylabel("Walltime per timestep [s]")
 plt.legend(frameon=False)
-plt.text(0.5, 0.1, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/time_per_timestep_ranks.png", bbox_inches="tight")
 plt.close()
 
@@ -127,7 +126,6 @@ plt.xlabel("Ranks")
 plt.ylabel("Speedup")
 plt.ylim(0, None)
 plt.legend(frameon=False)
-plt.text(0.5, 0.9, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/speedup_ranks.png", bbox_inches="tight")
 plt.close()
 
@@ -141,7 +139,6 @@ plt.plot(ranks_N9, scaling_N9.parallel_efficiency, "x-", label=r"$N=9$")
 plt.xlabel("Ranks")
 plt.ylabel("Parallel Efficiency")
 plt.legend(frameon=False)
-plt.text(0.58, 0.85, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/efficiency_ranks.png", bbox_inches="tight")
 plt.close()
 
@@ -157,7 +154,6 @@ plt.xlabel(r"Quadrature Points per Rank ($n=EN^3$)")
 plt.gca().invert_xaxis()
 plt.ylabel("Walltime per timestep [s]")
 plt.legend(frameon=False)
-plt.text(0.6, 0.9, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/time_per_timestep_qps_ranks.png", bbox_inches="tight")
 plt.close()
 
@@ -173,7 +169,6 @@ plt.xlabel(r"Quadrature Points per GPU ($n=EN^3$)")
 plt.gca().invert_xaxis()
 plt.ylabel("Walltime per timestep [s]")
 plt.legend(frameon=False)
-plt.text(0.6, 0.9, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/time_per_timestep_qps_gpu.png", bbox_inches="tight")
 plt.close()
 
@@ -197,7 +192,6 @@ plt.gca().invert_xaxis()
 plt.ylabel("Speedup")
 plt.ylim(0, 5)
 plt.legend(frameon=False)
-plt.text(0.4, 0.9, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/speedup_qps_rank.png", bbox_inches="tight")
 plt.close()
 
@@ -221,7 +215,6 @@ plt.gca().invert_xaxis()
 plt.ylabel("Speedup")
 plt.ylim(0, 5)
 plt.legend(frameon=False)
-plt.text(0.4, 0.9, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/speedup_qps_gpu.png", bbox_inches="tight")
 plt.close()
 
@@ -237,7 +230,6 @@ plt.xlabel(r"Quadrature Points per Rank ($n=EN^3$)")
 plt.gca().invert_xaxis()
 plt.ylabel("Parallel Efficiency")
 plt.legend(frameon=False)
-plt.text(0.1, 0.1, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/efficiency_qps_rank.png", bbox_inches="tight")
 plt.close()
 
@@ -253,7 +245,6 @@ plt.xlabel(r"Quadrature Points per GPU ($n=EN^3$)")
 plt.gca().invert_xaxis()
 plt.ylabel("Parallel Efficiency")
 plt.legend(frameon=False)
-plt.text(0.1, 0.1, "Right limit: max GPUs used\nLeft limit: int32 overflow", transform=ax.transAxes)
 plt.savefig(f"{savedir}/efficiency_qps_gpu.png", bbox_inches="tight")
 plt.close()
 
