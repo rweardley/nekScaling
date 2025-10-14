@@ -14,7 +14,7 @@ cp -r ../../base $jobdir
 cd $jobdir
 sed -i "s/polynomialOrder = 1/polynomialOrder = ${SLURM_ARRAY_TASK_ID}/" laminarPipe.par
 
-source ~/.nekrs_mi300x_v24-dev_251006_profile
+source ~/.nekrs_mi300x_v24-dev_profile
 nrsmpi laminarPipe 24 2>&1 | tee log.run
 ../../../log2tsv.sh log.run
 mv summary.tsv ../N_${SLURM_ARRAY_TASK_ID}.tsv
