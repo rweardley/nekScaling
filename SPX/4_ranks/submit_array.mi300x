@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J NRS_MI300X_build
+#SBATCH -J NRS_MI300X_SPX_4
 #SBATCH -A UKAEA-AP002-GPU
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:4
