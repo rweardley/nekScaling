@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:8
 #SBATCH --time=00:45:00
 #SBATCH --mail-type=NONE
-#SBATCH -p ukaea-mi300x
+#SBATCH -p ukaea-mi300x-64
 #SBATCH --array=1-9:1
 
 jobdir="N_${SLURM_ARRAY_TASK_ID}"
