@@ -6,95 +6,71 @@ sys.path.append("../")
 from scaling import StrongScalingCase
 from scaling import WeakScalingCases
 
-savedir = "scaling_plots/run2a"
+savedir = "scaling_plots/run3"
+casedir = "run3"
 
 timestep_range = slice(100, 2000)
 lelg = 54000  # number of elements in .re2 mesh
 
-# didn't run for more than 16 ranks
 ranks_N1 = [8, 12, 16]
-files_N1 = [str(rank)+"_ranks/run2a/N_1.tsv" for rank in ranks_N1]
+files_N1 = [str(rank)+"_ranks/"+casedir+"/N_1.tsv" for rank in ranks_N1]
 scaling_N1 = StrongScalingCase(ranks_N1, 8, files_N1, lelg, 1, timestep_range)
 print(f"\nN=1")
 scaling_N1.scaling_calculations()
 
-# didn't run for more than 16 ranks
 ranks_N2 = [8, 12, 16]
-files_N2 = [str(rank)+"_ranks/run2a/N_2.tsv" for rank in ranks_N2]
+files_N2 = [str(rank)+"_ranks/"+casedir+"/N_2.tsv" for rank in ranks_N2]
 scaling_N2 = StrongScalingCase(ranks_N2, 8, files_N2, lelg, 2, timestep_range)
 print(f"\nN=2")
 scaling_N2.scaling_calculations()
 
-# didn't run for more than 48 ranks
-#ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
-ranks_N3 = [8, 12, 16, 40]
-files_N3 = [str(rank)+"_ranks/run2a/N_3.tsv" for rank in ranks_N3]
+ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
+files_N3 = [str(rank)+"_ranks/"+casedir+"/N_3.tsv" for rank in ranks_N3]
 scaling_N3 = StrongScalingCase(ranks_N3, 8, files_N3, lelg, 3, timestep_range)
 print(f"\nN=3")
 scaling_N3.scaling_calculations()
 
-# didn't run for more than 48 ranks
-#ranks_N4 = [16, 24, 32, 40, 48]
-ranks_N4 = [8, 12, 16, 32, 40]
-files_N4 = [str(rank)+"_ranks/run2a/N_4.tsv" for rank in ranks_N4]
+# ranks_N4 = [8, 12, 16, 24, 32, 40, 48]
+ranks_N4 = [8, 12, 16, 24, 40, 48]
+files_N4 = [str(rank)+"_ranks/"+casedir+"/N_4.tsv" for rank in ranks_N4]
 scaling_N4 = StrongScalingCase(ranks_N4, 8, files_N4, lelg, 4, timestep_range)
 print(f"\nN=4")
 scaling_N4.scaling_calculations()
-# ranks_N4_failed = [8, 12]
-# N4_int32_vals = [3.5e9, 2.3e9]
 
-#ranks_N5 = [24, 32, 40, 48, 56, 64, 128]
-ranks_N5 = [8, 12, 32, 40]
-files_N5 = [str(rank)+"_ranks/run2a/N_5.tsv" for rank in ranks_N5]
+# ranks_N5 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+ranks_N5 = [8, 12, 16, 24, 40, 48, 56, 64, 128]
+files_N5 = [str(rank)+"_ranks/"+casedir+"/N_5.tsv" for rank in ranks_N5]
 scaling_N5 = StrongScalingCase(ranks_N5, 8, files_N5, lelg, 5, timestep_range)
 print(f"\nN=5")
 scaling_N5.scaling_calculations()
-# ranks_N5_failed = [8, 12, 16]
-# N5_int32_vals = [5.6e9, 3.7e9, 2.8e9]
 
-# didn't run <24 ranks
-# ranks_N6 = [32, 40, 48, 56, 64, 128]
-ranks_N6 = [32]
-files_N6 = [str(rank)+"_ranks/run2a/N_6.tsv" for rank in ranks_N6]
+# ranks_N6 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+ranks_N6 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
+files_N6 = [str(rank)+"_ranks/"+casedir+"/N_6.tsv" for rank in ranks_N6]
 scaling_N6 = StrongScalingCase(ranks_N6, 8, files_N6, lelg, 6, timestep_range)
 print(f"\nN=6")
 scaling_N6.scaling_calculations()
-# ranks_N6_failed = [24]
-# N6_int32_vals = [2.8e9]
 
-# didn't run <24 ranks
-#ranks_N7 = [48, 56, 64, 128]
-ranks_N7 = [32]
-files_N7 = [str(rank)+"_ranks/run2a/N_7.tsv" for rank in ranks_N7]
+# ranks_N7 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+ranks_N7 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
+files_N7 = [str(rank)+"_ranks/"+casedir+"/N_7.tsv" for rank in ranks_N7]
 scaling_N7 = StrongScalingCase(ranks_N7, 8, files_N7, lelg, 7, timestep_range)
 print(f"\nN=7")
 scaling_N7.scaling_calculations()
-# ranks_N7_failed = [24, 32, 40]
-# N7_int32_vals = [4.0e9, 3.0e9, 2.4e9]
 
-# didn't run <24 ranks
-# ranks_N8 = [64, 128]
-ranks_N8 = [32]
-files_N8 = [str(rank)+"_ranks/run2a/N_8.tsv" for rank in ranks_N8]
+# ranks_N8 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+ranks_N8 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
+files_N8 = [str(rank)+"_ranks/"+casedir+"/N_8.tsv" for rank in ranks_N8]
 scaling_N8 = StrongScalingCase(ranks_N8, 8, files_N8, lelg, 8, timestep_range)
 print(f"\nN=8")
 scaling_N8.scaling_calculations()
-# ranks_N8_failed = [24, 32, 40, 48, 56]
-# N8_int32_vals = [5.6e9, 4.2e9, 3.4e9, 2.8e9, 2.4e9]
 
-# didn't run <24 ranks
-# ranks_N9 = [128]
-ranks_N9 = [32]
-files_N9 = [str(rank)+"_ranks/run2a/N_9.tsv" for rank in ranks_N9]
+# ranks_N9 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+ranks_N9 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
+files_N9 = [str(rank)+"_ranks/"+casedir+"/N_9.tsv" for rank in ranks_N9]
 scaling_N9 = StrongScalingCase(ranks_N9, 8, files_N9, lelg, 9, timestep_range)
 print(f"\nN=9")
 scaling_N9.scaling_calculations()
-# ranks_N9_failed = [24, 32, 40, 48, 56, 64]
-# N9_int32_vals = [7.6e9, 5.7e9, 4.5e9, 3.8e9, 3.3e9, 2.9e9]
-
-# Hypervapotron case
-# ranks_hvt_N2_failed = [32, 64]
-# hvt_N2_int32_vals = [8.158e9, 4.08e9]
 
 fig, ax = plt.subplots()
 plt.plot(ranks_N3, scaling_N3.time_per_timestep, "x-", label=r"$N=3$")
@@ -251,21 +227,21 @@ plt.legend(frameon=False)
 plt.savefig(f"{savedir}/efficiency_qps_gpu.png", bbox_inches="tight")
 plt.close()
 
-# weak scaling
+# # weak scaling
 
-strong_scaling_cases = [scaling_N1, scaling_N2, scaling_N3, scaling_N4, scaling_N5, scaling_N6, scaling_N7, scaling_N8, scaling_N9]
-weak_scaling_cases = WeakScalingCases(strong_scaling_cases)
+# strong_scaling_cases = [scaling_N1, scaling_N2, scaling_N3, scaling_N4, scaling_N5, scaling_N6, scaling_N7, scaling_N8, scaling_N9]
+# weak_scaling_cases = WeakScalingCases(strong_scaling_cases)
 
-qps_per_rank_range = [0.81e6, 0.88e6]
-ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
-plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
+# qps_per_rank_range = [0.81e6, 0.88e6]
+# ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
+# plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
 
-qps_per_rank_range = [0.0, 0.2e6]
-ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
-plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
+# qps_per_rank_range = [0.0, 0.2e6]
+# ranks, scaled_speedup = weak_scaling_cases.weak_scaling_calculations(*qps_per_rank_range)
+# plt.plot(ranks, scaled_speedup, "x-", label=f"{qps_per_rank_range}")
 
-plt.xlabel("Ranks")
-plt.ylabel("Scaled Speedup")
-plt.legend(frameon=False)
-plt.savefig(f"{savedir}/weak_scaling.png", bbox_inches="tight")
-plt.close()
+# plt.xlabel("Ranks")
+# plt.ylabel("Scaled Speedup")
+# plt.legend(frameon=False)
+# plt.savefig(f"{savedir}/weak_scaling.png", bbox_inches="tight")
+# plt.close()

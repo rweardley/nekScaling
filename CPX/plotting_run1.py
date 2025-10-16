@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
+
+sys.path.append("../")
 from scaling import StrongScalingCase
 
 savedir = "scaling_plots/run1"
