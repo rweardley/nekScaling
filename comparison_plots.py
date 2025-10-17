@@ -5,10 +5,16 @@ import numpy as np
 from scaling import StrongScalingCase
 from scaling import WeakScalingCases
 
+align_cpx_with_spx = True  # limit number of points plotted so they cover the same range
+# align_cpx_with_spx = False  # limit number of points plotted so they cover the same range
 
-savedir = "comparison_plots"
+savedir = "comparison_plots/comp1"
 SPX_casedir = "run1"
 CPX_casedir = "run3"
+
+savedir = "comparison_plots/comp2_exclusive"
+SPX_casedir = "run3"
+CPX_casedir = "run4"
 
 timestep_range = slice(100, 2000)
 lelg = 54000  # number of elements in .re2 mesh
@@ -16,16 +22,19 @@ lelg = 54000  # number of elements in .re2 mesh
 N_values = range(1, 10)
 colours = cm.tab10(np.linspace(0, 1, len(N_values)))
 
-N_values_to_plot = N_values
-suffix = ""
+# N_values_to_plot = N_values
+# suffix = ""
 
 # min_N = 8
 # max_N = 9
 # N_values_to_plot = range(min_N, max_N+1)
 # suffix = f"_N_{N_values_to_plot[0]}-{N_values_to_plot[-1]}"
 
-# N_values_to_plot = [2]
-# suffix = f"_N_{N_values_to_plot[0]}"
+N_values_to_plot = [9]
+suffix = f"_N_{N_values_to_plot[0]}"
+
+if align_cpx_with_spx:
+    suffix += f"_aligned"
 
 SPX_ranks_per_gpu = 1
 SPX_linestyle = "-"
@@ -170,8 +179,7 @@ CPX_scaling_N3 = StrongScalingCase(
 print(f"\nCPX N=3")
 CPX_scaling_N3.scaling_calculations()
 
-# CPX_ranks_N4 = [8, 12, 16, 24, 32, 40, 48]
-CPX_ranks_N4 = [8, 12, 16, 24, 40, 48]
+CPX_ranks_N4 = [8, 12, 16, 24, 32, 40, 48]
 CPX_files_N4 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_4.tsv" for rank in CPX_ranks_N4
 ]
@@ -181,8 +189,7 @@ CPX_scaling_N4 = StrongScalingCase(
 print(f"\nCPX N=4")
 CPX_scaling_N4.scaling_calculations()
 
-# CPX_ranks_N5 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-CPX_ranks_N5 = [8, 12, 16, 24, 40, 48, 56, 64, 128]
+CPX_ranks_N5 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
 CPX_files_N5 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_5.tsv" for rank in CPX_ranks_N5
 ]
@@ -192,8 +199,11 @@ CPX_scaling_N5 = StrongScalingCase(
 print(f"\nCPX N=5")
 CPX_scaling_N5.scaling_calculations()
 
-# CPX_ranks_N6 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-CPX_ranks_N6 = [16, 24, 32, 40, 48, 56, 64, 128]  # to align with SPX cases
+if align_cpx_with_spx:
+    CPX_ranks_N6 = [16, 24, 32, 40, 48, 56, 64, 128]  # to align with SPX cases
+else:
+    CPX_ranks_N6 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+
 CPX_files_N6 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_6.tsv" for rank in CPX_ranks_N6
 ]
@@ -203,8 +213,11 @@ CPX_scaling_N6 = StrongScalingCase(
 print(f"\nCPX N=6")
 CPX_scaling_N6.scaling_calculations()
 
-# CPX_ranks_N7 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-CPX_ranks_N7 = [16, 24, 32, 40, 48, 56, 64, 128]  # to align with SPX cases
+if align_cpx_with_spx:
+    CPX_ranks_N7 = [16, 24, 32, 40, 48, 56, 64, 128]  # to align with SPX cases
+else:
+    CPX_ranks_N7 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+
 CPX_files_N7 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_7.tsv" for rank in CPX_ranks_N7
 ]
@@ -214,8 +227,13 @@ CPX_scaling_N7 = StrongScalingCase(
 print(f"\nCPX N=7")
 CPX_scaling_N7.scaling_calculations()
 
-# CPX_ranks_N8 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-CPX_ranks_N8 = [32, 40, 48, 56, 64, 128]  # to align with SPX cases
+if align_cpx_with_spx:
+    # CPX_ranks_N8 = [32, 40, 48, 56, 64, 128]  # to align with SPX cases
+    CPX_ranks_N8 = [32, 40, 56, 64, 128]  # to align with SPX cases; 48 failed due to timeout?
+else:
+    # CPX_ranks_N8 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+    CPX_ranks_N8 = [8, 12, 16, 24, 32, 40, 56, 64, 128] # 48 failed due to timeout?
+
 CPX_files_N8 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_8.tsv" for rank in CPX_ranks_N8
 ]
@@ -225,8 +243,11 @@ CPX_scaling_N8 = StrongScalingCase(
 print(f"\nCPX N=8")
 CPX_scaling_N8.scaling_calculations()
 
-# CPX_ranks_N9 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-CPX_ranks_N9 = [32, 40, 48, 56, 64, 128]  # to align with SPX cases
+if align_cpx_with_spx:
+    CPX_ranks_N9 = [32, 40, 48, 56, 64, 128]  # to align with SPX cases
+else:
+    CPX_ranks_N9 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+
 CPX_files_N9 = [
     "CPX/" + str(rank) + "_ranks/" + CPX_casedir + "/N_9.tsv" for rank in CPX_ranks_N9
 ]
