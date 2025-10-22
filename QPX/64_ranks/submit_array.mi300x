@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH -J NRS_MI300X_QPX_64
+#SBATCH -A UKAEA-AP002-GPU
+#SBATCH --nodes=2
+#SBATCH --gres=gpu:32
+#SBATCH --time=00:30:00
+#SBATCH --mail-type=NONE
+#SBATCH -p ukaea-mi300x-32
+#SBATCH --array=5-9:1
+#SBATCH --exclusive
+
+jobdir="N_${SLURM_ARRAY_TASK_ID}"
+cp -r ../../base $jobdir
+cd $jobdir
+sed -i "s/polynomialOrder = 1/polynomialOrder = ${SLURM_ARRAY_TASK_ID}/" laminarPipe.par
+
+source ~/.nekrs_mi300x_v24-dev_QPX_profile
+mpirun -np 64 -ppn 32 nekrs --setup laminarPipe.par 2>&1 | tee log.run
+../../../log2tsv.sh log.run
+mv summary.tsv ../N_${SLURM_ARRAY_TASK_ID}.tsv
