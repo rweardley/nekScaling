@@ -8,13 +8,14 @@ from scaling import WeakScalingCases
 align_cpx_with_spx = True  # limit number of points plotted so they cover the same range
 # align_cpx_with_spx = False  # limit number of points plotted so they cover the same range
 
-savedir = "comparison_plots/comp1"
-SPX_casedir = "run1"
-CPX_casedir = "run3"
+# savedir = "comparison_plots/comp1"
+# SPX_casedir = "run1"
+# CPX_casedir = "run3"
 
 savedir = "comparison_plots/comp2_exclusive"
 SPX_casedir = "run3"
 CPX_casedir = "run4"
+QPX_casedir = "run1"
 
 timestep_range = slice(100, 2000)
 lelg = 54000  # number of elements in .re2 mesh
@@ -30,7 +31,7 @@ colours = cm.tab10(np.linspace(0, 1, len(N_values)))
 # N_values_to_plot = range(min_N, max_N+1)
 # suffix = f"_N_{N_values_to_plot[0]}-{N_values_to_plot[-1]}"
 
-N_values_to_plot = [9]
+N_values_to_plot = [1]
 suffix = f"_N_{N_values_to_plot[0]}"
 
 if align_cpx_with_spx:
@@ -41,6 +42,9 @@ SPX_linestyle = "-"
 
 CPX_ranks_per_gpu = 8
 CPX_linestyle = "--"
+
+QPX_ranks_per_gpu = 4
+QPX_linestyle = ":"
 
 
 # load SPX results
@@ -269,6 +273,110 @@ CPX_results = [
     CPX_scaling_N9,
 ]
 
+# load QPX results
+
+QPX_ranks_N1 = [4, 8]
+QPX_files_N1 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_1.tsv" for rank in QPX_ranks_N1
+]
+QPX_scaling_N1 = StrongScalingCase(
+    QPX_ranks_N1, QPX_ranks_per_gpu, QPX_files_N1, lelg, 1, timestep_range
+)
+print(f"\nQPX N=1")
+QPX_scaling_N1.scaling_calculations()
+
+QPX_ranks_N2 = [4, 8]
+QPX_files_N2 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_2.tsv" for rank in QPX_ranks_N2
+]
+QPX_scaling_N2 = StrongScalingCase(
+    QPX_ranks_N2, QPX_ranks_per_gpu, QPX_files_N2, lelg, 2, timestep_range
+)
+print(f"\nQPX N=2")
+QPX_scaling_N2.scaling_calculations()
+
+QPX_ranks_N3 = [4, 8, 24] # 16 didn't start for some reason
+QPX_files_N3 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_3.tsv" for rank in QPX_ranks_N3
+]
+QPX_scaling_N3 = StrongScalingCase(
+    QPX_ranks_N3, QPX_ranks_per_gpu, QPX_files_N3, lelg, 3, timestep_range
+)
+print(f"\nQPX N=3")
+QPX_scaling_N3.scaling_calculations()
+
+QPX_ranks_N4 = [4, 8, 24] # 16 didn't start for some reason
+QPX_files_N4 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_4.tsv" for rank in QPX_ranks_N4
+]
+QPX_scaling_N4 = StrongScalingCase(
+    QPX_ranks_N4, QPX_ranks_per_gpu, QPX_files_N4, lelg, 4, timestep_range
+)
+print(f"\nQPX N=4")
+QPX_scaling_N4.scaling_calculations()
+
+QPX_ranks_N5 = [4, 16, 24, 32] # 8 didn't start for some reason
+QPX_files_N5 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_5.tsv" for rank in QPX_ranks_N5
+]
+QPX_scaling_N5 = StrongScalingCase(
+    QPX_ranks_N5, QPX_ranks_per_gpu, QPX_files_N5, lelg, 5, timestep_range
+)
+print(f"\nQPX N=5")
+QPX_scaling_N5.scaling_calculations()
+
+QPX_ranks_N6 = [8, 16, 24, 32]
+QPX_files_N6 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_6.tsv" for rank in QPX_ranks_N6
+]
+QPX_scaling_N6 = StrongScalingCase(
+    QPX_ranks_N6, QPX_ranks_per_gpu, QPX_files_N6, lelg, 6, timestep_range
+)
+print(f"\nQPX N=6")
+QPX_scaling_N6.scaling_calculations()
+
+QPX_ranks_N7 = [8, 16, 24, 32]
+QPX_files_N7 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_7.tsv" for rank in QPX_ranks_N7
+]
+QPX_scaling_N7 = StrongScalingCase(
+    QPX_ranks_N7, QPX_ranks_per_gpu, QPX_files_N7, lelg, 7, timestep_range
+)
+print(f"\nQPX N=7")
+QPX_scaling_N7.scaling_calculations()
+
+QPX_ranks_N8 = [16, 24, 32, 64]
+QPX_files_N8 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_8.tsv" for rank in QPX_ranks_N8
+]
+QPX_scaling_N8 = StrongScalingCase(
+    QPX_ranks_N8, QPX_ranks_per_gpu, QPX_files_N8, lelg, 8, timestep_range
+)
+print(f"\nQPX N=8")
+QPX_scaling_N8.scaling_calculations()
+
+QPX_ranks_N9 = [16, 24, 32, 64]
+QPX_files_N9 = [
+    "QPX/" + str(rank) + "_ranks/" + QPX_casedir + "/N_9.tsv" for rank in QPX_ranks_N9
+]
+QPX_scaling_N9 = StrongScalingCase(
+    QPX_ranks_N9, QPX_ranks_per_gpu, QPX_files_N9, lelg, 9, timestep_range
+)
+print(f"\nQPX N=9")
+QPX_scaling_N9.scaling_calculations()
+
+QPX_results = [
+    QPX_scaling_N1,
+    QPX_scaling_N2,
+    QPX_scaling_N3,
+    QPX_scaling_N4,
+    QPX_scaling_N5,
+    QPX_scaling_N6,
+    QPX_scaling_N7,
+    QPX_scaling_N8,
+    QPX_scaling_N9,
+]
+
 # plots
 
 # time-per-timestep
@@ -294,6 +402,14 @@ for i, N in enumerate(N_values):
             color=colour,
             label=f"CPX N={N}",
         )
+        plt.plot(
+            QPX_results[i].qps_per_gpu,
+            QPX_results[i].time_per_timestep,
+            marker="x",
+            ls=QPX_linestyle,
+            color=colour,
+            label=f"QPX N={N}",
+        )
 
 # Legend for colors (N values)
 legend_color_handles = [
@@ -309,7 +425,7 @@ legend_color_handles = [
 # Legend for line styles (datasets)
 legend_style_handles = [
     Line2D([0], [0], color="k", lw=2, linestyle=ls, label=f"{lbl}")
-    for ls, lbl in zip([CPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "SPX (full GPU)"])
+    for ls, lbl in zip([CPX_linestyle, QPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "QPX (4 partitions)", "SPX (full GPU)"])
 ]
 
 # Add both legends
@@ -357,6 +473,14 @@ for i, N in enumerate(N_values):
             color=colour,
             label=f"CPX N={N}",
         )
+        plt.plot(
+            QPX_results[i].qps_per_gpu,
+            QPX_results[i].speedup,
+            marker="x",
+            ls=QPX_linestyle,
+            color=colour,
+            label=f"QPX N={N}",
+        )
 
 # Legend for colors (N values)
 legend_color_handles = [
@@ -372,7 +496,7 @@ legend_color_handles = [
 # Legend for line styles (datasets)
 legend_style_handles = [
     Line2D([0], [0], color="k", lw=2, linestyle=ls, label=f"{lbl}")
-    for ls, lbl in zip([CPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "SPX (full GPU)"])
+    for ls, lbl in zip([CPX_linestyle, QPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "QPX (4 partitions)", "SPX (full GPU)"])
 ]
 
 # Add both legends
@@ -420,6 +544,14 @@ for i, N in enumerate(N_values):
             color=colour,
             label=f"CPX N={N}",
         )
+        plt.plot(
+            QPX_results[i].qps_per_gpu,
+            QPX_results[i].parallel_efficiency,
+            marker="x",
+            ls=QPX_linestyle,
+            color=colour,
+            label=f"QPX N={N}",
+        )
 
 # Legend for colors (N values)
 legend_color_handles = [
@@ -435,7 +567,7 @@ legend_color_handles = [
 # Legend for line styles (datasets)
 legend_style_handles = [
     Line2D([0], [0], color="k", lw=2, linestyle=ls, label=f"{lbl}")
-    for ls, lbl in zip([CPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "SPX (full GPU)"])
+    for ls, lbl in zip([CPX_linestyle, QPX_linestyle, SPX_linestyle], ["CPX (8 partitions)", "QPX (4 partitions)", "SPX (full GPU)"])
 ]
 
 # Add both legends
