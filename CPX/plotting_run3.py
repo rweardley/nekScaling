@@ -44,29 +44,29 @@ scaling_N5 = StrongScalingCase(ranks_N5, 8, files_N5, lelg, 5, timestep_range)
 print(f"\nN=5")
 scaling_N5.scaling_calculations()
 
-# ranks_N6 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-ranks_N6 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
+ranks_N6 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+# ranks_N6 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
 files_N6 = [str(rank)+"_ranks/"+casedir+"/N_6.tsv" for rank in ranks_N6]
 scaling_N6 = StrongScalingCase(ranks_N6, 8, files_N6, lelg, 6, timestep_range)
 print(f"\nN=6")
 scaling_N6.scaling_calculations()
 
-# ranks_N7 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-ranks_N7 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
+ranks_N7 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+# ranks_N7 = [16, 24, 32, 40, 48, 56, 64, 128] # to align with SPX cases
 files_N7 = [str(rank)+"_ranks/"+casedir+"/N_7.tsv" for rank in ranks_N7]
 scaling_N7 = StrongScalingCase(ranks_N7, 8, files_N7, lelg, 7, timestep_range)
 print(f"\nN=7")
 scaling_N7.scaling_calculations()
 
-# ranks_N8 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-ranks_N8 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
+ranks_N8 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+# ranks_N8 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
 files_N8 = [str(rank)+"_ranks/"+casedir+"/N_8.tsv" for rank in ranks_N8]
 scaling_N8 = StrongScalingCase(ranks_N8, 8, files_N8, lelg, 8, timestep_range)
 print(f"\nN=8")
 scaling_N8.scaling_calculations()
 
-# ranks_N9 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
-ranks_N9 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
+ranks_N9 = [8, 12, 16, 24, 32, 40, 48, 56, 64, 128]
+# ranks_N9 = [32, 40, 48, 56, 64, 128] # to align with SPX cases
 files_N9 = [str(rank)+"_ranks/"+casedir+"/N_9.tsv" for rank in ranks_N9]
 scaling_N9 = StrongScalingCase(ranks_N9, 8, files_N9, lelg, 9, timestep_range)
 print(f"\nN=9")
