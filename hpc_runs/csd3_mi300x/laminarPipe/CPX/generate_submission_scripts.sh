@@ -4,6 +4,12 @@
 # Case specifications
 # ------------------------------------------------------------------
 
+jobname_prefix=NRS_MI300X_CPX
+total_ranks_per_node=64
+account=UKAEA-AP002-GPU
+partition=ukaea-mi300x-64
+profile=../case_profile
+
 nodes_arr=(
     1
     1
@@ -56,8 +62,6 @@ array_spec_arr=(
     "5-9:1"
 )
 
-base_script="submit_array.mi300x"
-
 # ------------------------------------------------------------------
 # Check array lengths match
 # ------------------------------------------------------------------
@@ -88,22 +92,32 @@ for ((i=0; i<n_cases; i++)); do
     case_script="${case_dir}/submit_array.mi300x"
 
     mkdir -p "${case_dir}"
-    cp "${base_script}" "${case_script}"
 
-    sed -i "s/J NRS_MI300X_CPX_8/J NRS_MI300X_CPX_${ranks_tot}/" "${case_script}"
-    sed -i "s/nodes=1/nodes=${nodes}/" "${case_script}"
-    sed -i "s/time=00:45:00/time=${walltime}/" "${case_script}"
-    sed -i "s/array=1-9:1/array=${array_spec}/" "${case_script}"
+    echo "#!/bin/bash" > ${case_script}
+    echo "" >> ${case_script}
+    echo "#SBATCH -J ${jobname_prefix}_${ranks_tot}" >> ${case_script}
+    echo "#SBATCH -A ${account}" >> ${case_script}
+    echo "#SBATCH --nodes=${nodes}" >> ${case_script}
+    echo "#SBATCH --gres=gpu:${total_ranks_per_node}" >> ${case_script}
+    echo "#SBATCH --time=${walltime}" >> ${case_script}
+    echo "#SBATCH -p ${partition}" >> ${case_script}
+    echo "#SBATCH --array=${array_spec}" >> ${case_script}
+    echo "#SBATCH --exclusive" >> ${case_script}
+    echo "" >> ${case_script}
+    echo "jobdir=\"N_\${SLURM_ARRAY_TASK_ID}\"" >> ${case_script}
+    echo "source ${profile}" >> ${case_script}
+    echo "cp -r \$BASE_CASE \$jobdir" >> ${case_script}
+    echo "cd \$jobdir" >> ${case_script}
+    echo "sed -i \"s/polynomialOrder = 1/polynomialOrder = \${SLURM_ARRAY_TASK_ID}/\" laminarPipe.par" >> ${case_script}
 
     if [[ ${nodes} -eq 1 ]]; then
-        sed -i \
-            "s/nrsmpi laminarPipe 8/nrsmpi laminarPipe ${ranks_per_node}/" \
-            "${case_script}"
+        echo "nrsmpi \${CASE_NAME} ${ranks_per_node} 2>&1 | tee log.run" >> ${case_script}
     else
-        sed -i \
-            "s/nrsmpi laminarPipe 8/mpirun -np ${ranks_tot} -ppn ${ranks_per_node} nekrs --setup laminarPipe.par/" \
-            "${case_script}"
+        echo "mpirun -np ${ranks_tot} -ppn ${ranks_per_node} nekrs --setup \${CASE_NAME}.par 2>&1 | tee log.run" >> ${case_script}
     fi
+
+    echo "\${NEK_SCALING_UTILS}/log2tsv.sh log.run" >> ${case_script}
+    echo "mv summary.tsv ../N_\${SLURM_ARRAY_TASK_ID}.tsv" >> ${case_script}
 
     echo "Created ${case_script}"
 
