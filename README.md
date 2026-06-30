@@ -18,3 +18,6 @@ To install the package in the virtual environment, navigate to `utils` with the 
 
 This can instead be installed in development mode using `pip install -e `, to allow the user to modify this package without needing to reinstall it after each change.
 
+## Workflow
+
+Cases which can be used for scaling runs can be found in `cases`. HPC scaling runs should be set up in `hpc_runs`, with a directory created in there for each HPC architecture.
