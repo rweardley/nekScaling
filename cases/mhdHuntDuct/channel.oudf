@@ -1,0 +1,10 @@
+void udfDirichlet(bcData *bc)
+{
+  if (isField("fluid velocity"))
+  {
+    // set velocity with recycling inlet
+    bc->uxFluid = bc->usrwrk[bc->idxVol + 0 * bc->fieldOffset];
+    bc->uyFluid = bc->usrwrk[bc->idxVol + 1 * bc->fieldOffset];
+    bc->uzFluid = bc->usrwrk[bc->idxVol + 2 * bc->fieldOffset];
+  }
+}
