@@ -1,0 +1,27 @@
+[GENERAL]
+polynomialOrder = 7
+
+stopAt = endTime
+endTime = 5
+dt = targetCFL=0.5 + max=0.0015 + initial=5.0e-4  # adaptive timestep
+timeStepper = tombo2
+
+checkpointControl = simulationTime
+checkpointInterval = -1
+
+regularization = hpfrt + nModes=1 + scalingCoeff=10
+
+usr = "../pipe.usr"
+udf = "../pipe.udf"
+
+[MESH]
+file = "../pipe.re2"
+
+[FLUID PRESSURE]
+residualTol = 1e-04
+
+[FLUID VELOCITY]
+boundaryTypeMap = wall
+viscosity = 1/6.9e4 # 1/Re
+density = 1.0
+residualTol = 1e-06
