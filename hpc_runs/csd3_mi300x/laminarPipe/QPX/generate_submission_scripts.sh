@@ -100,6 +100,8 @@ for ((i=0; i<n_cases; i++)); do
         echo "mpirun -np ${ranks_tot} -ppn ${ranks_per_node} nekrs --setup \${CASE_NAME}.par 2>&1 | tee log.run" >> ${case_script}
     fi
 
+    echo "rm -rf .cache" >> ${case_script}
+
     echo "\${NEK_SCALING_UTILS}/log2tsv.sh log.run" >> ${case_script}
     echo "mv summary.tsv ../N_\${SLURM_ARRAY_TASK_ID}.tsv" >> ${case_script}
 
