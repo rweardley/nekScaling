@@ -1,50 +1,130 @@
 #!/bin/bash
 
-# Check if a log file is provided as an argument
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <log_file>"
     exit 1
 fi
 
-# Assign the input log file from the command-line argument
 log_file="$1"
-
-# Define output TSV file
 output_file="summary.tsv"
 
-# Write header to the TSV file
-echo -e "Timestep\tCFL\tt\tdt\tElapsedStep\tP_iter\tUVW_iter\tPB_iter\tBxyz_iter" > "$output_file"
-
-# Extract relevant lines, parse the required fields, and append to TSV
 awk '
-{
-    # Get information about individual field solves within timestep
-    if (match($0, /P\s+: iter ([0-9]+)/, p_iter)) { P_iter = p_iter[1]; }
-    if (match($0, /UVW\s+: iter ([0-9]+)/, uvw_iter)) { UVW_iter = uvw_iter[1]; }
-    if (match($0, /PB\s+: iter ([0-9]+)/, pb_iter)) { PB_iter = pb_iter[1]; }
-    if (match($0, /Bxyz\s+: iter ([0-9]+)/, bxyz_iter)) { Bxyz_iter = bxyz_iter[1]; }
+BEGIN {
+    OFS="\t"
 
-    # Print on required step= lines (specific key to ignore second step= lines)
-    if ((match($0, /step= ([0-9]+)/, step)) && (match($0, /dt=([0-9.e+-]+)/, dt))) {
+    print "Timestep","CFL","t","dt","ElapsedStep", \
+          "P_iter","UVW_iter","PB_iter","Bxyz_iter","PHI_iter","T_iter"
+}
 
-        # Store new timestep values
-        timestep = step[1];
-        dt_value = dt[1];
-        match($0, /t= ([0-9.e+-]+)/, time); t = time[1];
-        match($0, /C= ([0-9.]+)/, c); cfl = c[1];
-        match($0, /elapsedStep= ([0-9.e+-]+)/, elapsed); elapsed_step = elapsed[1];
+#
+# Old-format full-induction solves
+#
+/^[[:space:]]*P[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        p_iter=a[1]
+}
 
-        if (timestep) {
-            # Print the previous timestep data before overwriting it with the new one
-            print timestep "\t" cfl "\t" t "\t" dt_value "\t" elapsed_step "\t" \
-                  P_iter "\t" \
-                  UVW_iter "\t" \
-                  PB_iter "\t" \
-                  Bxyz_iter;
-        }
-        # Reset iteration counts for this new timestep
-        P_iter = UVW_iter = PB_iter = Bxyz_iter = "";
-    }
-}' "$log_file" >> "$output_file"
+/^[[:space:]]*UVW[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        uvw_iter=a[1]
+}
+
+/^[[:space:]]*PB[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        pb_iter=a[1]
+}
+
+/^[[:space:]]*Bxyz[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        bxyz_iter=a[1]
+}
+
+#
+# New-format inductionless solves
+#
+/FLUID p[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        p_iter=a[1]
+}
+
+/FLUID U[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        uvw_iter=a[1]
+}
+
+/MHD PHI[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        phi_iter=a[1]
+}
+
+/SCALAR temperature[[:space:]]*:[[:space:]]*iter/ {
+    if (match($0,/iter[[:space:]]+([0-9]+)/,a))
+        t_iter=a[1]
+}
+
+#
+# Old-format timestep summary
+#
+/step=.*t=.*dt=.*elapsedStep=/ {
+
+    timestep=""
+    t=""
+    dt=""
+    cfl=""
+    elapsed=""
+
+    if (match($0,/step=[[:space:]]*([0-9]+)/,a))
+        timestep=a[1]
+
+    if (match($0,/t=[[:space:]]*([^[:space:]]+)/,a))
+        t=a[1]
+
+    if (match($0,/dt=[[:space:]]*([^[:space:]]+)/,a))
+        dt=a[1]
+
+    if (match($0,/C=[[:space:]]*([^[:space:]]+)/,a))
+        cfl=a[1]
+
+    if (match($0,/elapsedStep=[[:space:]]*([^s[:space:]]+)/,a))
+        elapsed=a[1]
+
+    print timestep,cfl,t,dt,elapsed,\
+          p_iter,uvw_iter,pb_iter,bxyz_iter,phi_iter,t_iter
+
+    next
+}
+
+#
+# New-format time line
+#
+/step=.*t=.*dt=.*CFL=/ {
+
+    if (match($0,/step=[[:space:]]*([0-9]+)/,a))
+        timestep=a[1]
+
+    if (match($0,/t=[[:space:]]*([^[:space:]]+)/,a))
+        t=a[1]
+
+    if (match($0,/dt=[[:space:]]*([^[:space:]]+)/,a))
+        dt=a[1]
+
+    if (match($0,/CFL=[[:space:]]*([^[:space:]]+)/,a))
+        cfl=a[1]
+
+    next
+}
+
+#
+# New-format elapsed line
+#
+/step=.*elapsedStep=.*elapsedStepSum=/ {
+
+    if (match($0,/elapsedStep=[[:space:]]*([^s[:space:]]+)/,a))
+        elapsed=a[1]
+
+    print timestep,cfl,t,dt,elapsed,\
+          p_iter,uvw_iter,pb_iter,bxyz_iter,phi_iter,t_iter
+}
+' "$log_file" > "$output_file"
 
 echo "Data has been extracted to $output_file"
