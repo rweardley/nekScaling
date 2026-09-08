@@ -1,3 +1,5 @@
+userSections = CASEDATA
+
 [GENERAL]
 polynomialOrder = 1
 
@@ -15,10 +17,10 @@ file = "mesh.re2"
 
 connectivityTol = 0.02
 
-[PRESSURE]
+[FLUID PRESSURE]
 residualTol = 1e-04
 
-[VELOCITY]
+[FLUID VELOCITY]
 boundaryTypeMap = inlet, outlet, wall
 viscosity = -100
 density = 1.0
