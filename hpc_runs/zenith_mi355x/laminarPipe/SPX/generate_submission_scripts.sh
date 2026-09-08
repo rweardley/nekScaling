@@ -8,7 +8,7 @@ jobname_prefix=ZEA_MI355X_SPX
 total_ranks_per_node=8
 account=ZEA-P007-ZENITH-GPU
 partition=mi355x
-profile=../../case_profile
+profile=../case_profile
 
 nodes_arr=(
     1
