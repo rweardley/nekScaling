@@ -3,6 +3,8 @@
 *.re2
 
 # Outputs
+cmake.log
+*.cache
 slurm-*
 *.tsv
 log.*
