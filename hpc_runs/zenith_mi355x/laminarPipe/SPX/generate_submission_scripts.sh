@@ -98,7 +98,7 @@ for ((i=0; i<n_cases; i++)); do
     if [[ ${nodes} -eq 1 ]]; then
         echo "nrsmpi \${CASE_NAME} ${ranks_per_node} 2>&1 | tee log.run" >> ${case_script}
     else
-        echo "mpirun -np ${ranks_tot} -ppn ${ranks_per_node} nekrs --setup \${CASE_NAME}.par 2>&1 | tee log.run" >> ${case_script}
+        echo "mpirun -np ${ranks_tot} -map-by ppr:${ranks_per_node}:node nekrs --setup \${CASE_NAME}.par 2>&1 | tee log.run" >> ${case_script}
     fi
 
     echo "rm -rf .cache" >> ${case_script}
