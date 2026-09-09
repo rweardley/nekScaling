@@ -3,8 +3,8 @@ import numpy as np
 import sys
 
 sys.path.append("../")
-from scaling import StrongScalingCase
-from scaling import WeakScalingCases
+from pyscaling.scaling import StrongScalingCase
+from pyscaling.scaling import WeakScalingCases
 
 savedir = "scaling_plots/run2a"
 
@@ -26,7 +26,7 @@ print(f"\nN=2")
 scaling_N2.scaling_calculations()
 
 # didn't run for more than 48 ranks
-#ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
+# ranks_N3 = [8, 12, 16, 24, 32, 40, 48]
 ranks_N3 = [8, 12, 16, 40]
 files_N3 = [str(rank)+"_ranks/run2a/N_3.tsv" for rank in ranks_N3]
 scaling_N3 = StrongScalingCase(ranks_N3, 8, files_N3, lelg, 3, timestep_range)
@@ -34,7 +34,7 @@ print(f"\nN=3")
 scaling_N3.scaling_calculations()
 
 # didn't run for more than 48 ranks
-#ranks_N4 = [16, 24, 32, 40, 48]
+# ranks_N4 = [16, 24, 32, 40, 48]
 ranks_N4 = [8, 12, 16, 32, 40]
 files_N4 = [str(rank)+"_ranks/run2a/N_4.tsv" for rank in ranks_N4]
 scaling_N4 = StrongScalingCase(ranks_N4, 8, files_N4, lelg, 4, timestep_range)
@@ -43,7 +43,7 @@ scaling_N4.scaling_calculations()
 # ranks_N4_failed = [8, 12]
 # N4_int32_vals = [3.5e9, 2.3e9]
 
-#ranks_N5 = [24, 32, 40, 48, 56, 64, 128]
+# ranks_N5 = [24, 32, 40, 48, 56, 64, 128]
 ranks_N5 = [8, 12, 32, 40]
 files_N5 = [str(rank)+"_ranks/run2a/N_5.tsv" for rank in ranks_N5]
 scaling_N5 = StrongScalingCase(ranks_N5, 8, files_N5, lelg, 5, timestep_range)
@@ -63,7 +63,7 @@ scaling_N6.scaling_calculations()
 # N6_int32_vals = [2.8e9]
 
 # didn't run <24 ranks
-#ranks_N7 = [48, 56, 64, 128]
+# ranks_N7 = [48, 56, 64, 128]
 ranks_N7 = [32]
 files_N7 = [str(rank)+"_ranks/run2a/N_7.tsv" for rank in ranks_N7]
 scaling_N7 = StrongScalingCase(ranks_N7, 8, files_N7, lelg, 7, timestep_range)

@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from matplotlib.lines import Line2D
 import numpy as np
-from scaling import StrongScalingCase
-from scaling import WeakScalingCases
+from pyscaling.scaling import StrongScalingCase
+from pyscaling.scaling import WeakScalingCases
 
 align_cpx_with_spx = True  # limit number of points plotted so they cover the same range
 # align_cpx_with_spx = False  # limit number of points plotted so they cover the same range

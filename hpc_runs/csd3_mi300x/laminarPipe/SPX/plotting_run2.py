@@ -3,8 +3,8 @@ import numpy as np
 import sys
 
 sys.path.append("../")
-from scaling import StrongScalingCase
-from scaling import WeakScalingCases
+from pyscaling.scaling import StrongScalingCase
+from pyscaling.scaling import WeakScalingCases
 
 savedir = "scaling_plots/run2"
 casedir = "run2"
