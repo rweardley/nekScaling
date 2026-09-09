@@ -90,6 +90,7 @@ for ((i=0; i<n_cases; i++)); do
     echo "" >> ${case_script}
     echo "jobdir=\"N_\${SLURM_ARRAY_TASK_ID}\"" >> ${case_script}
     echo "source ${profile}" >> ${case_script}
+    echo "source \${NEK_PROFILE}" >> ${case_script}
     echo "cp -r \$BASE_CASE \$jobdir" >> ${case_script}
     echo "cd \$jobdir" >> ${case_script}
     echo "sed -i \"s/polynomialOrder = 1/polynomialOrder = \${SLURM_ARRAY_TASK_ID}/\" laminarPipe.par" >> ${case_script}
