@@ -17,6 +17,7 @@ nodes_arr=(
     1
     1
     2
+    4
 )
 
 ranks_per_node_arr=(
@@ -26,14 +27,16 @@ ranks_per_node_arr=(
     6
     8
     8
+    8
 )
 
 walltime_arr=(
-    "00:30:00"
-    "00:30:00"
-    "00:30:00"
-    "00:30:00"
-    "00:30:00"
+    "01:30:00"
+    "01:30:00"
+    "01:00:00"
+    "01:00:00"
+    "01:00:00"
+    "01:00:00"
     "00:30:00"
 )
 
@@ -42,6 +45,7 @@ array_spec_arr=(
     "1-9:1"
     "3-9:1"
     "3-9:1"
+    "5-9:1"
     "5-9:1"
     "5-9:1"
 )
@@ -94,6 +98,9 @@ for ((i=0; i<n_cases; i++)); do
     echo "cp -r \$BASE_CASE \$jobdir" >> ${case_script}
     echo "cd \$jobdir" >> ${case_script}
     echo "sed -i \"s/polynomialOrder = 1/polynomialOrder = \${SLURM_ARRAY_TASK_ID}/\" laminarPipe.par" >> ${case_script}
+    echo 'sed -i '\''/file = "mesh.re2"/a hRefine = 2, 2, 2'\'' laminarPipe.par' >> ${case_script}
+    echo "sed -i \"s/stopAt = endTime/stopAt = numSteps/\" laminarPipe.par" >> ${case_script}
+    echo "sed -i \"s/endTime = 5/numSteps = 2000/\" laminarPipe.par" >> ${case_script}
 
     if [[ ${nodes} -eq 1 ]]; then
         echo "nrsmpi \${CASE_NAME} ${ranks_per_node} 2>&1 | tee log.run" >> ${case_script}
