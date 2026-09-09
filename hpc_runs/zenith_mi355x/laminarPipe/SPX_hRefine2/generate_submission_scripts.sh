@@ -77,7 +77,7 @@ for ((i=0; i<n_cases; i++)); do
     ranks_tot=$((ranks_per_node * nodes))
 
     case_dir="${ranks_tot}_ranks"
-    case_script="${case_dir}/submit_array.mi300x"
+    case_script="${case_dir}/submit_array.mi355x"
 
     mkdir -p "${case_dir}"
 
