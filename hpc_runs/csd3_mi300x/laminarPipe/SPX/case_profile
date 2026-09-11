@@ -3,4 +3,4 @@ CASE_NAME="laminarPipe"
 export NEK_SCALING_ROOT=`pwd`/../../../../..
 export NEK_SCALING_UTILS=${NEK_SCALING_ROOT}/utils
 export BASE_CASE=${NEK_SCALING_ROOT}/cases/${CASE_NAME}
-export NEK_PROFILE="${HOME}/.nekrs_mi300x_v26_260225_profile"
+export NEK_PROFILE="${HOME}/.nekrs_mi300x_v26_260911_profile"
