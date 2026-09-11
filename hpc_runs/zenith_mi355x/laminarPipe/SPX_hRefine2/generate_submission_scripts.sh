@@ -98,7 +98,7 @@ for ((i=0; i<n_cases; i++)); do
     echo "cp -r \$BASE_CASE \$jobdir" >> ${case_script}
     echo "cd \$jobdir" >> ${case_script}
     echo "sed -i \"s/polynomialOrder = 1/polynomialOrder = \${SLURM_ARRAY_TASK_ID}/\" laminarPipe.par" >> ${case_script}
-    echo 'sed -i '\''/file = "mesh.re2"/a hRefine = 2, 2, 2'\'' laminarPipe.par' >> ${case_script}
+    echo 'sed -i '\''/file = "mesh.re2"/a hRefine = 2'\'' laminarPipe.par' >> ${case_script}
     echo "sed -i \"s/stopAt = endTime/stopAt = numSteps/\" laminarPipe.par" >> ${case_script}
     echo "sed -i \"s/endTime = 5/numSteps = 2000/\" laminarPipe.par" >> ${case_script}
 
