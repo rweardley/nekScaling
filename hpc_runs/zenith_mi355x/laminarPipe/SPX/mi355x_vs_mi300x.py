@@ -18,7 +18,8 @@ savedir = "comparison_plots"
 mi355x_rootdir = ""
 mi355x_casedir = ""
 mi300x_rootdir = "../../../csd3_mi300x/laminarPipe/SPX/"
-mi300x_casedir = "run3"
+# mi300x_casedir = "run3"
+mi300x_casedir = ""
 
 timestep_range = slice(100, 2000)
 lelg = 54000  # number of elements in .re2 mesh
