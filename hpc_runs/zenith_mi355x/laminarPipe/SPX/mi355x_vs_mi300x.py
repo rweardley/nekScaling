@@ -14,7 +14,7 @@ align_cpx_with_spx = (
 # SPX_casedir = "run1"
 # CPX_casedir = "run3"
 
-savedir = "comparison_plots"
+savedir = "mi355x_vs_mi300x"
 mi355x_rootdir = ""
 mi355x_casedir = ""
 mi300x_rootdir = "../../../csd3_mi300x/laminarPipe/SPX/"
@@ -27,13 +27,13 @@ lelg = 54000  # number of elements in .re2 mesh
 N_values = range(1, 10)
 colours = cm.tab10(np.linspace(0, 1, len(N_values)))
 
-# N_values_to_plot = N_values
-# suffix = ""
+N_values_to_plot = N_values
+suffix = ""
 
-min_N = 8
-max_N = 9
-N_values_to_plot = range(min_N, max_N+1)
-suffix = f"_N_{N_values_to_plot[0]}-{N_values_to_plot[-1]}"
+# min_N = 8
+# max_N = 9
+# N_values_to_plot = range(min_N, max_N+1)
+# suffix = f"_N_{N_values_to_plot[0]}-{N_values_to_plot[-1]}"
 
 # N_values_to_plot = [7]
 # suffix = f"_N_{N_values_to_plot[0]}"
@@ -160,7 +160,7 @@ mi300x_scaling_N7 = StrongScalingCase(
 print("\nMI300X SPX N=7")
 mi300x_scaling_N7.scaling_calculations()
 
-mi300x_ranks_N8 = [2, 4, 6, 8, 16]
+mi300x_ranks_N8 = [1, 2, 4, 6, 8, 16]
 mi300x_files_N8 = [
     mi300x_rootdir + str(rank) + "_ranks/" + mi300x_casedir + "/N_8.tsv"
     for rank in mi300x_ranks_N8
@@ -176,7 +176,7 @@ mi300x_scaling_N8 = StrongScalingCase(
 print("\nMI300X SPX N=8")
 mi300x_scaling_N8.scaling_calculations()
 
-mi300x_ranks_N9 = [2, 4, 6, 8, 16]
+mi300x_ranks_N9 = [1, 2, 4, 6, 8, 16]
 mi300x_files_N9 = [
     mi300x_rootdir + str(rank) + "_ranks/" + mi300x_casedir + "/N_9.tsv"
     for rank in mi300x_ranks_N9
