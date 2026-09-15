@@ -4,7 +4,7 @@
 # Case specifications
 # ------------------------------------------------------------------
 
-jobname_prefix=ZEA_MI355X_SPX
+jobname_prefix=ZEA_HVT
 total_ranks_per_node=8
 account=ZEA-P007-ZENITH-GPU
 partition=mi355x
@@ -17,6 +17,8 @@ nodes_arr=(
     1
     1
     2
+    3
+    4
 )
 
 ranks_per_node_arr=(
@@ -24,6 +26,8 @@ ranks_per_node_arr=(
     2
     4
     6
+    8
+    8
     8
     8
 )
@@ -35,9 +39,13 @@ walltime_arr=(
     "03:00:00"
     "02:00:00"
     "01:00:00"
+    "01:00:00"
+    "01:00:00"
 )
 
 array_spec_arr=(
+    "3-7:1"
+    "3-7:1"
     "3-7:1"
     "3-7:1"
     "3-7:1"
