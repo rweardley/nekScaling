@@ -2,5 +2,5 @@ CASE_NAME="hvt"
 
 export NEK_SCALING_ROOT=`pwd`/../../../../..
 export NEK_SCALING_UTILS=${NEK_SCALING_ROOT}/utils
-export BASE_CASE=${NEK_SCALING_ROOT}/cases/hypervapotron/hypervapotron_benchmark
+export BASE_CASE=${NEK_SCALING_ROOT}/cases/hypervapotron_benchmark/hvt_RE
 export NEK_PROFILE=${HOME}/".nekrs_mi355x_v26_260908_profile"
