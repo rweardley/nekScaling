@@ -1,7 +1,7 @@
 import numpy as np
 
 class StrongScalingCase:
-    def __init__(self, ranks_list, ranks_per_gpu, files_list, elements, polynomialorder, timestep_range):
+    def __init__(self, ranks_list, ranks_per_device, files_list, elements, polynomialorder, timestep_range, device_type="GPU"):
         self.files_list = files_list
         self.elements = elements
         self.polynomialorder = polynomialorder
@@ -11,18 +11,19 @@ class StrongScalingCase:
         self.parallel_efficiency = []
         self.qps = polynomialorder**3 * elements
         self.ranks_list = ranks_list
-        self.ranks_per_gpu = ranks_per_gpu
+        self.ranks_per_device = ranks_per_device
         self.qps_per_rank = [
             self.qps / rank for rank in self.ranks_list
         ]
-        self.qps_per_gpu = [
-            self.qps / (rank/ranks_per_gpu) for rank in self.ranks_list
+        self.qps_per_device = [
+            self.qps / (rank/ranks_per_device) for rank in self.ranks_list
         ]
         self.timestep_range = timestep_range
+        self.device_type = device_type
 
     def scaling_calculations(self):
         print(
-            "Ranks\tGPUs\tQPs per rank\tQPs per GPU\tTime per timestep [s]\tSpeedup\tIdeal Speedup\tParallel Efficiency\tMean Iters (P, UVW)"
+            f"Ranks\t{self.device_type}s\tQPs per rank\tQPs per {self.device_type}\tTime per timestep [s]\tSpeedup\tIdeal Speedup\tParallel Efficiency\tMean Iters (P, UVW)"
         )
         for i in range(len(self.ranks_list)):
             ranks = self.ranks_list[i]
@@ -44,8 +45,8 @@ class StrongScalingCase:
             )
             self.parallel_efficiency.append(parallel_efficiency)
             print(
-                f"{ranks}\t{ranks/self.ranks_per_gpu}"
-                f"\t{self.qps_per_rank[i]:.2e}\t{self.qps_per_gpu[i]:.2e}"
+                f"{ranks}\t{ranks/self.ranks_per_device}"
+                f"\t{self.qps_per_rank[i]:.2e}\t{self.qps_per_device[i]:.2e}"
                 f"\t{mean_time_per_timestep:.3f}"
                 f"\t\t\t{speedup:.3f}\t{ideal_speedup:.3f}"
                 f"\t\t{parallel_efficiency:.3f}"
