@@ -24,7 +24,7 @@ if device == "socket":
 elif device == "node":
     ranks_per_device = 112
 
-reference_ranks = 8
+reference_ranks = 1
 reference_dir = f"../../../zenith_mi355x/laminarPipe/SPX/{reference_ranks}_ranks/"
 polynomial_orders = [5, 6, 7, 8, 9]
 reference_time_per_timestep = []
@@ -167,6 +167,34 @@ for N_val in polynomial_orders:
         bbox_inches="tight",
     )
     plt.close()
+
+fig, ax = plt.subplots()
+# plt.plot(ranks_N3, N_to_ref_time[3]/scaling_N3.time_per_timestep, "x-", label=r"$N=3$")
+# plt.plot(ranks_N4, N_to_ref_time[4]/scaling_N4.time_per_timestep, "x-", label=r"$N=4$")
+plt.plot(ranks_N5, N_to_ref_time[5]/scaling_N5.time_per_timestep, "x-", label=r"$N=5$")
+plt.plot(ranks_N6, N_to_ref_time[6]/scaling_N6.time_per_timestep, "x-", label=r"$N=6$")
+plt.plot(ranks_N7, N_to_ref_time[7]/scaling_N7.time_per_timestep, "x-", label=r"$N=7$")
+plt.plot(ranks_N8, N_to_ref_time[8]/scaling_N8.time_per_timestep, "x-", label=r"$N=8$")
+plt.plot(ranks_N9, N_to_ref_time[9]/scaling_N9.time_per_timestep, "x-", label=r"$N=9$")
+plt.xlabel("Ranks")
+plt.ylabel("Speedup vs GPU")
+plt.legend(frameon=False)
+plt.savefig(f"{savedir}/speedup_vs_GPU_ranks.png", bbox_inches="tight")
+plt.close()
+
+fig, ax = plt.subplots()
+# plt.plot(np.array(ranks_N3)/ranks_per_device, N_to_ref_time[3]/scaling_N3.time_per_timestep, "x-", label=r"$N=3$")
+# plt.plot(np.array(ranks_N4)/ranks_per_device, N_to_ref_time[4]/scaling_N4.time_per_timestep, "x-", label=r"$N=4$")
+plt.plot(np.array(ranks_N5)/ranks_per_device, N_to_ref_time[5]/scaling_N5.time_per_timestep, "x-", label=r"$N=5$")
+plt.plot(np.array(ranks_N6)/ranks_per_device, N_to_ref_time[6]/scaling_N6.time_per_timestep, "x-", label=r"$N=6$")
+plt.plot(np.array(ranks_N7)/ranks_per_device, N_to_ref_time[7]/scaling_N7.time_per_timestep, "x-", label=r"$N=7$")
+plt.plot(np.array(ranks_N8)/ranks_per_device, N_to_ref_time[8]/scaling_N8.time_per_timestep, "x-", label=r"$N=8$")
+plt.plot(np.array(ranks_N9)/ranks_per_device, N_to_ref_time[9]/scaling_N9.time_per_timestep, "x-", label=r"$N=9$")
+plt.xlabel(f"{device.capitalize()}s")
+plt.ylabel("Speedup vs GPU")
+plt.legend(frameon=False)
+plt.savefig(f"{savedir}/speedup_vs_GPU_{device}s.png", bbox_inches="tight")
+plt.close()
 
 fig, ax = plt.subplots()
 plt.plot(ranks_N3, scaling_N3.speedup, "x-", label=r"$N=3$")
