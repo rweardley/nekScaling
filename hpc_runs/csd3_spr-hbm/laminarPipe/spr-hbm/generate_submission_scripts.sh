@@ -82,7 +82,7 @@ for ((i=0; i<n_cases; i++)); do
     echo "#SBATCH -J ${jobname_prefix}_${ranks_tot}" >> ${case_script}
     echo "#SBATCH -A ${account}" >> ${case_script}
     echo "#SBATCH --nodes=${nodes}" >> ${case_script}
-    echo "#SBATCH --ntasks-per-node:${total_ranks_per_node}" >> ${case_script}
+    echo "#SBATCH --ntasks-per-node=${total_ranks_per_node}" >> ${case_script}
     echo "#SBATCH --time=${walltime}" >> ${case_script}
     echo "#SBATCH -p ${partition}" >> ${case_script}
     echo "#SBATCH --array=${array_spec}" >> ${case_script}
