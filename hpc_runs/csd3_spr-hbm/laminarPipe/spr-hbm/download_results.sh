@@ -1,4 +1,4 @@
-ranks_list=(8 14 28 56 112 244)
+ranks_list=(8 14 28 56 112 224 336 448)
 remote=login-dawn.hpc.cam.ac.uk
 remote_general=/home/ir-eard1/rds/rds-ukaea-ap002-mOlK9qn0PlQ/ir-eard1/NekRS/user_problems
 remote_dir=$remote_general/nekScaling/hpc_runs/csd3_spr-hbm/laminarPipe/spr-hbm
