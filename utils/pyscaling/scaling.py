@@ -23,7 +23,7 @@ class StrongScalingCase:
 
     def scaling_calculations(self):
         print(
-            f"Ranks\t{self.device_type}s\tQPs per rank\tQPs per {self.device_type}\tTime per timestep [s]\tSpeedup\tIdeal Speedup\tParallel Efficiency\tMean Iters (P, UVW)"
+            f"Ranks\t{self.device_type.capitalize()}s\tQPs per rank\tQPs per {self.device_type}\tTime per timestep [s]\tSpeedup\tIdeal Speedup\tParallel Efficiency\tMean Iters (P, UVW)"
         )
         for i in range(len(self.ranks_list)):
             ranks = self.ranks_list[i]
